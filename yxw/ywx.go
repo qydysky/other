@@ -7,10 +7,8 @@ import (
 	"github.com/qydysky/part"
 )
 
-var web_total = part.Limit(500,1,3)
-
 func Web(web *http.ServeMux){
-	if web_total.TO() {return}
+	if part.Limit(500,1,3).TO() {return}
 
 	web.HandleFunc("/yxw/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./src/html/"+r.URL.Path)
