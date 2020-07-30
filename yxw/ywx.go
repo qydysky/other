@@ -7,6 +7,8 @@ import (
 	"github.com/qydysky/part"
 )
 
+func Yxw(){}
+
 var web_total *part.Limitl 
 func init(){
 	web_total = part.Limit(500,1,3)

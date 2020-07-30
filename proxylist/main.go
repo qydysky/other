@@ -15,6 +15,8 @@ import (
 	"v2ray.com/core/app/router"
 )
 
+func Proxylist(){}
+
 type ProxyList_item struct {
 	Acce_file string
 	Filename string

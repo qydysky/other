@@ -9,6 +9,8 @@ import (
 
 var prog *exec.Cmd
 
+func Aria2(){}
+
 func Run()*exec.Cmd{
 	first()
 	go func(){
