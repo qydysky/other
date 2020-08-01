@@ -15,12 +15,16 @@ func init(){
 }
 
 func Web(web *http.ServeMux){
-	if web_total.TO() {return}
-
+	web.HandleFunc("/yxw", func(w http.ResponseWriter, r *http.Request) {
+        if web_total.TO() {return}
+        w.WriteHeader(404);return;
+    })
 	web.HandleFunc("/yxw/", func(w http.ResponseWriter, r *http.Request) {
+		if web_total.TO() {return}
 		http.ServeFile(w, r, "./src/html/"+r.URL.Path)
 	})
 	web.HandleFunc("/yxw/api/", func(w http.ResponseWriter, r *http.Request) {
+		if web_total.TO() {return}
         w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
         w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
         w.Header().Set("content-type", "application/json")
