@@ -11,7 +11,7 @@ func Yxw(){}
 
 var web_total *part.Limitl 
 func init(){
-	web_total = part.Limit(500,1,3)
+	web_total = part.Limit(5,10,3000)
 }
 
 func Web(web *http.ServeMux){
