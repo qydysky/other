@@ -44,11 +44,11 @@ func pic(url string) string{
 	tmp:=strings.Split(url,"/pic/")
 	tmp=strings.Split(tmp[1],"&")
 
-	var _ReqfVal = part.ReqfVal{
+	var _ReqfVal = part.Rval{
 		Url:"http://ocg.resource.m2v.cn/"+tmp[0]+".jpg",
 	}
 
-	f,_,err:=part.Reqf(_ReqfVal);
+	f,_,err:=part.Req().Reqf(_ReqfVal);
 
 	if err==nil&&!strings.Contains(string(f),"Error") {return "\"http://ocg.resource.m2v.cn/"+tmp[0]+".jpg\""}
 
@@ -69,11 +69,11 @@ func en2jp(url string) string{
 func seachf(url string) string{
 	tmp:=strings.Split(url,"/seach")
 
-	var _ReqfVal = part.ReqfVal{
+	var _ReqfVal = part.Rval{
 		Url:"https://www.ourocg.cn/search"+tmp[1],
 	}
 
-	_l,_,_:=part.Reqf(_ReqfVal);
+	_l,_,_:=part.Req().Reqf(_ReqfVal);
 
 	l:=string(_l)
 	

@@ -42,13 +42,13 @@ func GetJanPageUrl(code string)string{
 }
 
 func Getinf(url,op,ed string,op_len int) string {
-	var _ReqfVal = part.ReqfVal{
+	var _ReqfVal = part.Rval{
 		Url:url,
 		Timeout:10,
 		Retry:2,
 	}
 
-	_l,_,_:=part.Reqf(_ReqfVal);
+	_l,_,_:=part.Req().Reqf(_ReqfVal);
 	
 	l:=string(_l)
 	

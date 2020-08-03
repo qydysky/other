@@ -21,7 +21,7 @@ func Run()*exec.Cmd{
 
 func main(){
 	
-	part.Startf(prog)
+	part.Exec().Startf(prog)
 
 	err:=prog.Wait();
 

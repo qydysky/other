@@ -45,10 +45,10 @@ func Main(p ProxylistCov_item){
 	var e error
 
 	if url!=""{
-		var _ReqfVal = part.ReqfVal{
+		var _ReqfVal = part.Rval{
 			Url:url,
 		}
-		b,_,e:=part.Reqf(_ReqfVal)
+		b,_,e:=part.Req().Reqf(_ReqfVal)
 
 		if e!=nil {return}
 
