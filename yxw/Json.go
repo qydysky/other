@@ -47,10 +47,10 @@ func Getinf(url,op,ed string,op_len int) string {
 		Timeout:10,
 		Retry:2,
 	}
-
-	_l,_,_:=part.Req().Reqf(_ReqfVal);
+	req := part.Req()
+	if e:=req.Reqf(_ReqfVal);e!=nil{}
 	
-	l:=string(_l)
+	l:=string(req.Respon)
 	
 	var oop int
 

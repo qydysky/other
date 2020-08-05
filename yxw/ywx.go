@@ -47,10 +47,8 @@ func pic(url string) string{
 	var _ReqfVal = part.Rval{
 		Url:"http://ocg.resource.m2v.cn/"+tmp[0]+".jpg",
 	}
-
-	f,_,err:=part.Req().Reqf(_ReqfVal);
-
-	if err==nil&&!strings.Contains(string(f),"Error") {return "\"http://ocg.resource.m2v.cn/"+tmp[0]+".jpg\""}
+	req := part.Req()
+	if err:=req.Reqf(_ReqfVal);err==nil&&!strings.Contains(string(req.Respon),"Error") {return "\"http://ocg.resource.m2v.cn/"+tmp[0]+".jpg\""}
 
 	return "\"http://ocg.resource.m2v.cn/ygopro/pics/"+tmp[1]+".jpg\""
 
@@ -72,10 +70,10 @@ func seachf(url string) string{
 	var _ReqfVal = part.Rval{
 		Url:"https://www.ourocg.cn/search"+tmp[1],
 	}
+	req := part.Req()
+	if e:=req.Reqf(_ReqfVal);e != nil{}
 
-	_l,_,_:=part.Req().Reqf(_ReqfVal);
-
-	l:=string(_l)
+	l:=string(req.Respon)
 	
 	l=l[strings.Index(l,"window.__STORE__ = ")+19:strings.LastIndex(l,";")]
 
