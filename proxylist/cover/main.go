@@ -49,7 +49,7 @@ func Main(p ProxylistCov_item){
 			Url:url,
 		}
 		req := part.Req()
-		if e:=.Reqf(_ReqfVal);e!=nil {return}
+		if e:=req.Reqf(_ReqfVal);e!=nil {return}
 
 		var u = part.Filel{
 			File:"remote.zip",
