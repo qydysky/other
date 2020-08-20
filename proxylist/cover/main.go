@@ -55,7 +55,7 @@ func Main(p ProxylistCov_item){
 			File:"remote.zip",
 			Write:true,
 			Loc:0,
-			Context:string(req.Respon),
+			Context:[]interface{}{req.Respon},
 		} 
 		part.File().FileWR(u)
 		if e=part.Zip().UnZip("remote.zip",opath);e!=nil{return}
