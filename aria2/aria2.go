@@ -58,7 +58,7 @@ func first(){
 		Loc:0,
 		ReadNum:0,
 	}
-	u.Context=strings.Replace(part.File().FileWR(u), "{dir}", rundir, -1 )
+	u.Context=[]interface{}{strings.Replace(part.File().FileWR(u), "{dir}", rundir, -1 )}
 	u.Write=true
 	u.File=rundir+"aria2.tmp.conf"
 
