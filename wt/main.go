@@ -9,8 +9,8 @@ import (
 )
 
 type wt struct{
-	webRoot string
-	savePath string
+	WebRoot string
+	SavePath string
 }
 
 func WT() *wt{
@@ -26,7 +26,7 @@ func (t *wt)Web(web *http.ServeMux){
     })
 	web.HandleFunc("/wt/", func(w http.ResponseWriter, r *http.Request) {
 		if web_total.TO() {return}
-		http.ServeFile(w, r, t.webRoot + r.URL.Path[3:])
+		http.ServeFile(w, r, t.WebRoot + r.URL.Path[3:])
 	})
 	web.HandleFunc("/wt/api/", func(w http.ResponseWriter, r *http.Request) {
 		if web_total.TO() {return}
@@ -87,7 +87,7 @@ func (t *wt)post(httpRq *http.Request) []interface{} {
 
 			file:=xpart.File()
 
-			file.F.File = t.webRoot + t.savePath + hdr.Filename
+			file.F.File = t.WebRoot + t.SavePath + hdr.Filename
 			file.F.Write = true
 			file.F.Context = []interface{}{infile}
 		
@@ -99,11 +99,11 @@ func (t *wt)post(httpRq *http.Request) []interface{} {
 }
 
 func (t *wt)list(httpRq *http.Request) []interface{} {
-	l,_,_ := xpart.Checkfile().GetAllFile(t.webRoot + t.savePath)
+	l,_,_ := xpart.Checkfile().GetAllFile(t.WebRoot + t.SavePath)
 	var returnVal string = "{\"list\":["
-	len := len(t.webRoot + t.savePath)
+	len := len(t.WebRoot + t.SavePath)
 	for _,v := range l {
-		returnVal += "\""+t.savePath + v[len:] + "\","
+		returnVal += "\""+t.SavePath + v[len:] + "\","
 	}
 	returnVal = strings.TrimRight(returnVal, ",")
 	returnVal += "]}"
@@ -115,8 +115,8 @@ func main() {
 
 	wt := WT()
 	
-	wt.webRoot = "./html/"
-	wt.savePath = "save/"
+	wt.WebRoot = "./html/"
+	wt.SavePath = "save/"
 
 	wt.Web(web)
 
