@@ -1,4 +1,4 @@
-module github.com/qydysky/other/webTranfrom
+module github.com/qydysky/other/wt
 
 go 1.14
 
