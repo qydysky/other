@@ -245,11 +245,13 @@ func Main(p ProxyList_item) error {
 			Acce_file:Acce_file,
 			Sign:"giaOut",
 			Filename:Filename+"giaOut",
+			Discard:true,
 		})
 		Main_proxy(Main_proxy_type {
 			Acce_file:Acce_file,
 			Sign:"fastOut",
 			Filename:Filename+"fastOut",
+			Discard:true,
 		})
 	}
 	NewPath(Filename)

@@ -4,8 +4,12 @@ go 1.14
 
 require (
 	github.com/golang/protobuf v1.4.2
-	go.starlark.net v0.0.0-20200723213555-f21d2f77688f // indirect
-	golang.org/x/sys v0.0.0-20200802091954-4b90ce9b60b3 // indirect
+	github.com/klauspost/compress v1.10.11 // indirect
+	github.com/qydysky/part v0.0.0-20200830230920-c8e5b36060ab
+	go.starlark.net v0.0.0-20200821142938-949cc6f4b097 // indirect
+	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
+	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
+	golang.org/x/sys v0.0.0-20200828194041-157a740278f4 // indirect
 	v2ray.com/core v4.15.0+incompatible
 )
 

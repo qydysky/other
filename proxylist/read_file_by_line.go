@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 	"errors"
+	"github.com/qydysky/part"
 )
 
 var limit int = -1
@@ -15,6 +16,7 @@ type Main_proxy_type struct {
 	Acce_file string
 	Sign string
 	Filename string
+	Discard bool
 }
 
 func Main_proxy(A Main_proxy_type){
@@ -22,6 +24,7 @@ func Main_proxy(A Main_proxy_type){
 		acce_file string = A.Acce_file
 		sign string = A.Sign
 		filename string = A.Filename
+		discard bool = A.Discard
 		link_buff []string
 	)
 
@@ -59,6 +62,16 @@ func Main_proxy(A Main_proxy_type){
 	if err:=new(filename);err != nil {fmt.Println(err);return}
 	read_data_proxy(filename,&link_buff)
 	read_proxy(acce_file,sign,&link_buff,proccess_proxy)
+
+	//delete a domain record
+	{
+		L := len(link_buff)
+		if discard && L >= 100 {
+			t := int(part.Rand().MixRandom(int64(L)))
+			link_buff = append(link_buff[:t],link_buff[t+1:]...)
+		}
+	}
+
 	write_proxy(filename,link_buff)
 }
 
