@@ -60,8 +60,37 @@ func (t *wt)webapi(httpRq *http.Request) []interface{} {
 	
 	if strings.Contains(path,"/list") {return t.list(httpRq)}
 	if strings.Contains(path,"/upload") {return t.post(httpRq)}
+	if strings.Contains(path,"/copy") {return t.copy(httpRq)}
 
     return []interface{}{2,404}
+}
+
+func (t *wt)copy(httpRq *http.Request) []interface{} {
+	if httpRq.Method != "POST" {
+		return []interface{}{2,503}
+	}
+
+	reqBody,err := ioutil.ReadAll(httpRq.Body)
+	if err != nil {
+		Partlog.E(err)
+		return []interface{}{0,err.Error()}
+	}
+	var i string
+	if json := Json().GetValFrom(string(reqBody),"c");json != nil {
+		i = json.(string)
+	}else{
+		return []interface{}{2,503}
+	}
+
+	file:=xpart.File()
+
+	file.F.File = t.WebRoot + t.SavePath + "copy.txt"
+	file.F.Write = true
+	file.F.Context = []interface{}{i}
+
+	file.FileWR(file.F)
+
+	return []interface{}{0,"{\"error\":\"\"}"}
 }
 
 func (t *wt)post(httpRq *http.Request) []interface{} {
