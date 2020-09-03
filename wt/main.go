@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"strings"
 	"mime/multipart"  
-    "strconv"
+	"strconv"
+	"io/ioutil"
 	xpart "github.com/qydysky/part"
 )
 
@@ -72,11 +73,10 @@ func (t *wt)copy(httpRq *http.Request) []interface{} {
 
 	reqBody,err := ioutil.ReadAll(httpRq.Body)
 	if err != nil {
-		Partlog.E(err)
 		return []interface{}{0,err.Error()}
 	}
 	var i string
-	if json := Json().GetValFrom(string(reqBody),"c");json != nil {
+	if json := xpart.Json().GetValFrom(string(reqBody),"c");json != nil {
 		i = json.(string)
 	}else{
 		return []interface{}{2,503}
