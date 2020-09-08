@@ -67,7 +67,7 @@ func Main_proxy(A Main_proxy_type){
 	{
 		L := len(link_buff)
 		if discard && L >= 100 {
-			t := int(part.Rand().MixRandom(int64(L)))
+			t := int(part.Rand().MixRandom(0, int64(L)))
 			link_buff = append(link_buff[:t],link_buff[t+1:]...)
 		}
 	}
