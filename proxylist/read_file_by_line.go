@@ -103,11 +103,22 @@ func check_proxy(line,sign string)bool{
 	return strings.Contains(line,sign)
 }
 
+var key_map = map[string]string{
+	`d tcp:`:`:`,
+	`d //`:`:`,
+	`d http://`:`/`,
+}
 func cut_proxy(line string)(string,error){
-	begin:=strings.Index(line,"d tcp:")+6
-	end:=strings.Index(line[begin:],":")+begin
-	if begin==-1 || begin >= end  {return "",errors.New("N")}
-	return line[begin:end],nil
+	for k,v := range key_map {
+		if begin:=strings.Index(line,k);begin!=-1  {
+			begin += len([]rune(k))
+			if end:=strings.Index(line[begin:],v);end!=-1 {
+				end += begin
+				return line[begin:end],nil
+			}
+		}
+	}
+	return "",errors.New("N")
 }
 
 func write_proxy(filename string, content []string) error {

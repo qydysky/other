@@ -243,13 +243,13 @@ func Main(p ProxyList_item) error {
 	if Acce_file != ""||exist(Acce_file) {
 		Main_proxy(Main_proxy_type {
 			Acce_file:Acce_file,
-			Sign:"giaOut",
+			Sign:"gia",
 			Filename:Filename+"giaOut",
 			Discard:true,
 		})
 		Main_proxy(Main_proxy_type {
 			Acce_file:Acce_file,
-			Sign:"fastOut",
+			Sign:"fast",
 			Filename:Filename+"fastOut",
 			Discard:true,
 		})
