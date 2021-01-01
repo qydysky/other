@@ -10,11 +10,12 @@ import (
 
 var (
 	prog *exec.Cmd
-	aria2_log = log.New(Config{
-        File:p.Sys().Cdir()+`/aria2.log`,
+	aria2_log = log.New(log.Config{
+        File:part.Sys().Pdir(part.Sys().Cdir())+`/log/aria2.log`,
         Stdout:true,
-        Prefix_string:map[string]struct{}{`T:`:On,`I:`:On,`W:`:On,`E:`:On},
+        Prefix_string:map[string]struct{}{`T: `:log.On,`I: `:log.On,`W: `:log.On,`E: `:log.On},
     }).Base(`aria2`)
+)
 
 func Aria2(){}
 
@@ -27,7 +28,9 @@ func Run()*exec.Cmd{
 }
 
 func main(){
-	check_and_close()
+	aria2_log.L(`I: `,"aria2 start")
+
+	for check_and_close() {}
 
 	part.Exec().Startf(prog)
 
@@ -40,15 +43,19 @@ func main(){
 	}
 }
 
-func check_and_close(){
+func check_and_close() bool {
 	if part.Sys().CheckProgram(`aria2`)[0] > 0 {
+		aria2_log.L(`I: `,"closeing aria2")
 		req := part.Req()
 		if e:=req.Reqf(part.Rval{
 			Url:`http://127.0.0.1:6800/jsonrpc?method=aria2.shutdown&id=op`,
 		});e != nil {
-			aria2_log.Base_add(`aria2`).L(`E: `,err.Error())
+			aria2_log.L(`W: `,e.Error())
 		}
+		part.Sys().Timeoutf(2)
+		return true
 	}
+	return false
 }
 
 func first(){
