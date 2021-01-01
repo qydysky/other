@@ -2,12 +2,19 @@ package aria2
 
 import (
 	"github.com/qydysky/part"
+	log "github.com/qydysky/part/log"
 	"os/exec"
 	"fmt"
 	"strings"
 )
 
-var prog *exec.Cmd
+var (
+	prog *exec.Cmd
+	aria2_log = log.New(Config{
+        File:p.Sys().Cdir()+`/aria2.log`,
+        Stdout:true,
+        Prefix_string:map[string]struct{}{`T:`:On,`I:`:On,`W:`:On,`E:`:On},
+    }).Base(`aria2`)
 
 func Aria2(){}
 
@@ -20,15 +27,27 @@ func Run()*exec.Cmd{
 }
 
 func main(){
-	
+	check_and_close()
+
 	part.Exec().Startf(prog)
 
 	err:=prog.Wait();
 
 	if err == nil {
-		part.Logf().I("aria2 fin with no error")
+		aria2_log.L(`I: `,"fin with no error")
 	}else{
-		part.Logf().I("[error]aria2:"+err.Error())
+		aria2_log.L(`E: `,err.Error())
+	}
+}
+
+func check_and_close(){
+	if part.Sys().CheckProgram(`aria2`)[0] > 0 {
+		req := part.Req()
+		if e:=req.Reqf(part.Rval{
+			Url:`http://127.0.0.1:6800/jsonrpc?method=aria2.shutdown&id=op`,
+		});e != nil {
+			aria2_log.Base_add(`aria2`).L(`E: `,err.Error())
+		}
 	}
 }
 
