@@ -32,7 +32,7 @@ func main(){
 
 	for check_and_close() {}
 
-	part.Exec().Startf(prog)
+	part.Exec().Start(prog)
 
 	err:=prog.Wait();
 
