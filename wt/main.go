@@ -5,6 +5,7 @@ import (
 	"strings"
 	"mime/multipart"  
 	"strconv"
+	"net/url"
 	"io/ioutil"
 	xpart "github.com/qydysky/part"
 )
@@ -80,6 +81,10 @@ func (t *wt)copy(httpRq *http.Request) []interface{} {
 		i = json.(string)
 	}else{
 		return []interface{}{2,503}
+	}
+	
+	if i,err = url.PathUnescape(i);err != nil {
+		return []interface{}{3,503}
 	}
 
 	file:=xpart.File()
