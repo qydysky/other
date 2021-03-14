@@ -89,7 +89,7 @@ func (t *wt)copy(httpRq *http.Request) []interface{} {
 
 	file:=xpart.File()
 
-	file.F.File = t.WebRoot + t.SavePath + "Clipboard.html"
+	file.F.File = t.WebRoot + t.SavePath + "Clipboard.txt"
 	file.F.Write = true
 	file.F.Context = []interface{}{i}
 
