@@ -28,7 +28,7 @@ func (t *wt)Web(pattern string,web *http.ServeMux){
     })
 	web.HandleFunc(pattern+"/wt/", func(w http.ResponseWriter, r *http.Request) {
 		if web_total.TO() {return}
-		http.ServeFile(w, r, t.WebRoot + r.URL.Path[3:])
+		http.ServeFile(w, r, t.WebRoot + r.URL.Path[len(pattern+"/wt/"):])
 	})
 	web.HandleFunc(pattern+"/wt/api/", func(w http.ResponseWriter, r *http.Request) {
 		if web_total.TO() {return}
