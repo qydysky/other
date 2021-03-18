@@ -152,7 +152,7 @@ func main() {
 	wt.WebRoot = "./html/"
 	wt.SavePath = "save/"
 
-	wt.Web(web)
+	wt.Web(``,web)
 
 	webAddr := "0.0.0.0"
 	xpart.Port().Set("wt",8089)
