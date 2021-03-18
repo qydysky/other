@@ -20,17 +20,17 @@ func WT() *wt{
 }
 
 var web_total = xpart.Limit(10,1000,3000)//every 1000ms accept 10 request and other wait 3000ms
-func (t *wt)Web(web *http.ServeMux){
+func (t *wt)Web(pattern string,web *http.ServeMux){
 
-	web.HandleFunc("/wt", func(w http.ResponseWriter, r *http.Request) {
+	web.HandleFunc(pattern+"/wt", func(w http.ResponseWriter, r *http.Request) {
         if web_total.TO() {return}
         w.WriteHeader(404);return;
     })
-	web.HandleFunc("/wt/", func(w http.ResponseWriter, r *http.Request) {
+	web.HandleFunc(pattern+"/wt/", func(w http.ResponseWriter, r *http.Request) {
 		if web_total.TO() {return}
 		http.ServeFile(w, r, t.WebRoot + r.URL.Path[3:])
 	})
-	web.HandleFunc("/wt/api/", func(w http.ResponseWriter, r *http.Request) {
+	web.HandleFunc(pattern+"/wt/api/", func(w http.ResponseWriter, r *http.Request) {
 		if web_total.TO() {return}
 		w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
         w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
