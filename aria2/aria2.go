@@ -20,7 +20,7 @@ var (
 func Aria2(){}
 
 func Run(Replace map[string]string)*exec.Cmd{
-	first(Replace map[string]string)
+	first(Replace)
 	go func(){
 		main()
 	}()
