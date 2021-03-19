@@ -19,8 +19,8 @@ var (
 
 func Aria2(){}
 
-func Run()*exec.Cmd{
-	first()
+func Run(Replace map[string]string)*exec.Cmd{
+	first(Replace map[string]string)
 	go func(){
 		main()
 	}()
@@ -58,7 +58,7 @@ func check_and_close() bool {
 	return false
 }
 
-func first(){
+func first(Replace map[string]string){
 	var (
 		runFile=""
 		rundir=""
@@ -84,7 +84,13 @@ func first(){
 		Loc:0,
 		ReadNum:0,
 	}
-	u.Context=[]interface{}{strings.Replace(part.File().FileWR(u), "{dir}", rundir, -1 )}
+
+	Replace["{dir}"] = rundir
+	conf := part.File().FileWR(u)
+	for k,v := range Replace{
+		conf = strings.Replace(conf, k, v, -1 )
+	}
+	u.Context=[]interface{}{conf}
 	u.Write=true
 	u.File=rundir+"aria2.tmp.conf"
 
