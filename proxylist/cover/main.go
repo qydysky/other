@@ -49,7 +49,7 @@ func Main(p ProxylistCov_item){
 		var _ReqfVal = reqf.Rval{
 			Url:url,
 		}
-		req := reqf.Req()
+		req := reqf.New()
 		if e:=req.Reqf(_ReqfVal);e!=nil {return}
 
 		var u = part.Filel{
