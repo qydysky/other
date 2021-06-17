@@ -1,6 +1,7 @@
 package aria2
 
 import (
+	reqf "github.com/qydysky/part/reqf"
 	"github.com/qydysky/part"
 	log "github.com/qydysky/part/log"
 	"os/exec"
@@ -46,8 +47,8 @@ func main(){
 func check_and_close() bool {
 	if part.Sys().CheckProgram(`aria2`)[0] > 0 {
 		aria2_log.L(`I: `,"closeing aria2")
-		req := part.Req()
-		if e:=req.Reqf(part.Rval{
+		req := reqf.New()
+		if e:=req.Reqf(reqf.Rval{
 			Url:`http://127.0.0.1:6800/jsonrpc?method=aria2.shutdown&id=op`,
 		});e != nil {
 			aria2_log.L(`W: `,e.Error())
@@ -80,7 +81,6 @@ func first(Replace map[string]string){
 
 	var u = part.Filel {
 		File:rundir+"aria2.conf",
-		Write:false,
 		Loc:0,
 		ReadNum:0,
 	}
@@ -91,7 +91,6 @@ func first(Replace map[string]string){
 		conf = strings.Replace(conf, k, v, -1 )
 	}
 	u.Context=[]interface{}{conf}
-	u.Write=true
 	u.File=rundir+"aria2.tmp.conf"
 
 	part.File().FileWR(u)

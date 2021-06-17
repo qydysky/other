@@ -3,7 +3,7 @@ package yxw
 import (
 	// "fmt"
 	"strings"
-	"github.com/qydysky/part"
+	reqf "github.com/qydysky/part/reqf"
 	"github.com/thedevsaddam/gojsonq"
 )
 
@@ -42,12 +42,12 @@ func GetJanPageUrl(code string)string{
 }
 
 func Getinf(url,op,ed string,op_len int) string {
-	var _ReqfVal = part.Rval{
+	var _ReqfVal = reqf.Rval{
 		Url:url,
 		Timeout:10,
 		Retry:2,
 	}
-	req := part.Req()
+	req := reqf.New()
 	if e:=req.Reqf(_ReqfVal);e!=nil{}
 	
 	l:=string(req.Respon)

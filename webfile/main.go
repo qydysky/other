@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"io/ioutil"
 	xpart "github.com/qydysky/part"
+	limit "github.com/qydysky/part/limit"
 )
 
 type wt struct{
@@ -19,7 +20,7 @@ func WT() *wt{
 	return &wt{}
 }
 
-var web_total = xpart.Limit(10,1000,3000)//every 1000ms accept 10 request and other wait 3000ms
+var web_total = limit.New(10,1000,3000)//every 1000ms accept 10 request and other wait 3000ms
 func (t *wt)Web(pattern string,web *http.ServeMux){
 
 	web.HandleFunc(pattern+"/wt", func(w http.ResponseWriter, r *http.Request) {
@@ -90,7 +91,6 @@ func (t *wt)copy(httpRq *http.Request) []interface{} {
 	file:=xpart.File()
 
 	file.F.File = t.WebRoot + t.SavePath + "Clipboard.txt"
-	file.F.Write = true
 	file.F.Context = []interface{}{i}
 
 	file.FileWR(file.F)
@@ -122,7 +122,6 @@ func (t *wt)post(httpRq *http.Request) []interface{} {
 			file:=xpart.File()
 
 			file.F.File = t.WebRoot + t.SavePath + hdr.Filename
-			file.F.Write = true
 			file.F.Context = []interface{}{infile}
 		
 			file.FileWR(file.F)

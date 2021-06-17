@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/qydysky/part"
+	reqf "github.com/qydysky/part/reqf"
 )
 type ProxylistCov_item struct {
 	Url string
@@ -45,15 +46,14 @@ func Main(p ProxylistCov_item){
 	var e error
 
 	if url!=""{
-		var _ReqfVal = part.Rval{
+		var _ReqfVal = reqf.Rval{
 			Url:url,
 		}
-		req := part.Req()
+		req := reqf.Req()
 		if e:=req.Reqf(_ReqfVal);e!=nil {return}
 
 		var u = part.Filel{
 			File:"remote.zip",
-			Write:true,
 			Loc:0,
 			Context:[]interface{}{req.Respon},
 		} 

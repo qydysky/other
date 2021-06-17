@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"strings"
 	"net/url"
-	"github.com/qydysky/part"
+	limit "github.com/qydysky/part/limit"
+	reqf "github.com/qydysky/part/reqf"
 )
 
 func Yxw(){}
 
-var web_total *part.Limitl 
+var web_total *limit.Limit 
 func init(){
-	web_total = part.Limit(5,10,3000)
+	web_total = limit.New(5,10,3000)
 }
 
 func Web(pattern string,web *http.ServeMux){
@@ -44,10 +45,10 @@ func pic(url string) string{
 	tmp:=strings.Split(url,"/pic/")
 	tmp=strings.Split(tmp[1],"&")
 
-	var _ReqfVal = part.Rval{
+	var _ReqfVal = reqf.Rval{
 		Url:"http://ocg.resource.m2v.cn/"+tmp[0]+".jpg",
 	}
-	req := part.Req()
+	req := reqf.New()
 	if err:=req.Reqf(_ReqfVal);err==nil&&!strings.Contains(string(req.Respon),"Error") {return "\"http://ocg.resource.m2v.cn/"+tmp[0]+".jpg\""}
 
 	return "\"http://ocg.resource.m2v.cn/ygopro/pics/"+tmp[1]+".jpg\""
@@ -67,10 +68,10 @@ func en2jp(url string) string{
 func seachf(url string) string{
 	tmp:=strings.Split(url,"/seach")
 
-	var _ReqfVal = part.Rval{
+	var _ReqfVal = reqf.Rval{
 		Url:"https://www.ourocg.cn/search"+tmp[1],
 	}
-	req := part.Req()
+	req := reqf.New()
 	if e:=req.Reqf(_ReqfVal);e != nil{}
 
 	l:=string(req.Respon)
