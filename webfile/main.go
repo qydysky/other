@@ -156,7 +156,7 @@ func main() {
 	webAddr := "0.0.0.0"
 
 	server := &http.Server{
-		Addr:         webAddr+":8089"),
+		Addr:         webAddr+":8089",
 		Handler:      web,
 	}
 
