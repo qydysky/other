@@ -31,7 +31,7 @@ func Run(Replace map[string]string)*exec.Cmd{
 func main(){
 	aria2_log.L(`I: `,"aria2 start")
 
-	for check_and_close() {}
+	for Check_And_Close() {}
 
 	part.Exec().Start(prog)
 
@@ -44,7 +44,7 @@ func main(){
 	}
 }
 
-func check_and_close() bool {
+func Check_And_Close() bool {
 	if part.Sys().CheckProgram(`aria2`)[0] > 0 {
 		aria2_log.L(`I: `,"closeing aria2")
 		req := reqf.New()
