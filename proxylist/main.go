@@ -105,7 +105,7 @@ func parseDomain(domain string, entry *Entry) error {
 
 	if len(kv) == 3 {
 		entry.Type = strings.ToLower(kv[0])
-		entry.Value = strings.ToLower(strings.Join(kv[1:], ":")
+		entry.Value = strings.ToLower(strings.Join(kv[1:], ":"))
 		return nil
 	}
 	return errors.New("Invalid format: " + domain)
